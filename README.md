@@ -2,32 +2,24 @@
 
 Executar os comandos abaixo em um terminal.
 
-**Instalação da MVN (simulador da Máquina de Von Neumann)**
+** Baixar a mvn
 
+A MVN está em um [submodulo](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
+
+Você pode baixar junto automaticamente ao clonar
 ```bash
-cd \~/Documents/pcs3616
-wget https://github.com/PCS-Poli-USP/MVN/archive/master.zip
-unzip master.zip
-rm master.zip
-
-mv MVN-master/* .
-
-rmdir MVN-master
+$ git clone --recurse-submodules <URI>
 ```
 
-Você pode notar que foram criados dois diretórios abaixo de pcs3616 que
-você criou aula passada, são eles MVN e MLR. Pelas aulas próximas vamos
-utilizar apenas o MVN, logo execute:
-
+Ou caso já tenha clonado o repositorio você pode inicializar o submodulo.
 ```bash
-cd MVN
+$ git submodule update --init
 ```
-
 Para rodar o simulador da MVN:
 
 ```python
 # Em um terminal Python
-import mvnMonitor
+>>> from MVN import mvnMonitor
 ```
 
 O monitor da MVN será iniciado, esse monitor fará a integração entre
@@ -37,7 +29,7 @@ você pode usar (sugestão: gaste algum tempo analisando as funções).
 # **Exercícios**
 
 | Atenção: em todos os exercícios, escrever os comentários apropriados para **todas** as instruções do programa.
-|-----------------------------------------------------------------------|
+-----------------------------------------------------------------------|
 
 ## 1) **ex1-soma.mvn**
 Escrever um programa que soma o valor das posições de memória 0x010 e 
@@ -79,7 +71,10 @@ Dicas:
 
 -   Use sub-rotinas para a conversão dos dígitos lidos em valores numéricos.
 
--   Veja o código de exemplo no [colinha da MVN](https://github.com/PCS3616/task-extra/blob/main/mvn_helper.md)
+-   Veja o código de exemplo 
+na [seção 5](https://edisciplinas.usp.br/pluginfile.php/7437533/mod_resource/content/1/5-teoria.pdf)
+e [seção 6](https://edisciplinas.usp.br/pluginfile.php/7437534/mod_resource/content/1/6-teoria.pdf)
+do material teórico
 
 -   Consulte a [tabela ASCII](http://ascii.cl/)
 
