@@ -2,7 +2,7 @@
 
 Executar os comandos abaixo em um terminal.
 
-** Baixar a mvn
+# Baixar a mvn
 
 A MVN está em um [submodulo](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
 
@@ -15,11 +15,15 @@ Ou caso já tenha clonado o repositorio você pode inicializar o submodulo.
 ```bash
 $ git submodule update --init
 ```
-Para rodar o simulador da MVN:
-
+Para rodar o simulador da MVN, a partir da raiz do repositório, você pode iniciar um terminal Python e 
+importar o monitor
 ```python
-# Em um terminal Python
+$ python3
 >>> from MVN import mvnMonitor
+```
+ou você pode executar diretamente com
+```bash
+$ python3 -m MVN.mvnMonitor
 ```
 
 O monitor da MVN será iniciado, esse monitor fará a integração entre
@@ -67,7 +71,7 @@ formato `<x-d1><x-d2><s><s><y-d1><y-d2>`, onde:
 Por exemplo, \"07 54\" é uma entrada válida, e o programa deve imprimir
 \"61\" na saída.
 
-Dicas:
+# Dicas:
 
 -   Use sub-rotinas para a conversão dos dígitos lidos em valores numéricos.
 
@@ -80,4 +84,4 @@ do material teórico
 
 Informação importante sobre a matéria da disciplina:
 
-![did you know... in order to play the role of an insane and mentally depressed person the moviwe "Joker", Joaquin Phoenix started learning programming in assembly](./media/image1.jpg)
+<img src="./media/image1.jpg" width=50%>
