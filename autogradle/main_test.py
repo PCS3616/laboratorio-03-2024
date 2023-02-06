@@ -53,6 +53,15 @@ def test_1():
 def test_2():
     filecode = submission_path / "ex2-subtracao.mvn"
     assert filecode.exists(), f"A submissão não contém o arquivo '{filecode.name}'"
+    
+    with open(filecode, mode='r') as f:
+        code = f.read().upper()
+
+        assert len(re.findall(r"A[\dA-F]{3}", code)) > 0, \
+            "O seu código deve conter uma chamada de subrotina"
+
+        assert len(re.findall(r"B[\dA-F]{3}", code)) > 0, \
+            "O seu código deve conter uma subrotina"
 
     inputs = [
         f"p {filecode.as_posix()}",
