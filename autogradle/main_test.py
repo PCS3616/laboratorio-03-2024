@@ -116,6 +116,7 @@ def test_3():
     ]
 
     run_mvn('\n'.join(inputs))
-
-    assert outputfile.read() == "61", \
+    
+    mvn_output = outputfile.read().replace('\n', '')
+    assert mvn_output == "61", \
         f"Seu código não está correto\nConfira seu envio."
