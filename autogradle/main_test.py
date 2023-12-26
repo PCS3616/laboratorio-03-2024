@@ -5,11 +5,10 @@ import tempfile
 
 submission_path = Path("./submission")
 
-def twos_complement(hexstr,bits):
-    value = int(hexstr,16)
-    if value & (1 << (bits-1)):
-        value -= 1 << bits
-    return value
+def limpa(string):
+    res=string.split(" ")
+    res=list(filter(None, res))
+    return int(res[1]+res[2],16)
 
 def run_mvn(input_text):
     # I hate the current MVN
@@ -50,73 +49,54 @@ def test_1():
         or mem_output=="0010:  ff  91  01  4d  00  de  ", \
        f"Seu código não está correto"
 
-def test_2():
-    filecode = submission_path / "ex2-subtracao.mvn"
+def test_2(x: int = 0, y: int = 0, w: int = 0):
+    filecode = submission_path / "ex2-divisao.mvn"
     assert filecode.exists(), f"A submissão não contém o arquivo '{filecode.name}'"
-    
-    with open(filecode, mode='r') as f:
-        code = f.read().upper()
 
-        assert len(re.findall(r"A[\dA-F]{3}", code)) > 0, \
-            "O seu código deve conter uma chamada de subrotina"
+    x_str = "{:04X}".format(x)
+    y_str = "{:04X}".format(y)
+    w_str = "{:04X}".format(w)
+    input_file = tempfile.NamedTemporaryFile(mode='w')
+    input_file.writelines([
+        f"0010	{x_str}\n",
+        f"0012	{y_str}\n",
+        f"0014	{w_str}\n"
+    ])
+    input_file.flush()
 
-        assert len(re.findall(r"B[\dA-F]{3}", code)) > 0, \
-            "O seu código deve conter uma subrotina"
+    output_file = tempfile.NamedTemporaryFile(mode='r')
 
     inputs = [
         f"p {filecode.as_posix()}",
-         "r",
-         "",
-         "n",
-         "",
-         "m 0010 0015",
-         "x",
-         "",
-    ]
-
-    output = run_mvn('\n'.join(inputs))
-
-    saida=output.split("\n")[-6:-3]
-    print(saida)
-
-    nums=saida[-1].split("  ")
-    x=twos_complement(nums[1]+nums[2], 16)
-    y=twos_complement(nums[3]+nums[4], 16)
-    r=twos_complement(nums[5]+nums[6], 16)
-
-    assert x-y == r, \
-        f"Seu código não está correto\nConfira seu envio."
-
-def test_3():
-    filecode = submission_path / "ex3-io.mvn"
-    assert filecode.exists(), f"A submissão não contém o arquivo '{filecode.name}'"
-
-    newcodefile = tempfile.NamedTemporaryFile(mode='w')
-
-    with open(filecode) as f:
-        new=re.sub("(e|E)100", "e300", f.read())
-        newcodefile.write(new)
-        newcodefile.flush()
-
-    outputfile = tempfile.NamedTemporaryFile(mode='r')
-
-    inputs = [
-        f"p {newcodefile.name}",
-        "s",
-        "a",
-        "3",
-        "00",
-        outputfile.name,
-        "e",
-        "r",
         "",
+        f"p {input_file.name}",
+        "",
+        "r",
+        "0",
         "n",
-        "07  54",
+        "",
+        f"m 0016 0017 {output_file.name}",
+        "",
         "x",
+        "",
     ]
 
     run_mvn('\n'.join(inputs))
-    
-    mvn_output = outputfile.read().replace('\n', '')
-    assert mvn_output == "61", \
+
+    z = limpa(output_file.read())
+
+    if w == 0:
+      assert z == 1, \
         f"Seu código não está correto\nConfira seu envio."
+    else:
+      assert z == int((x-y)/w), \
+        f"Seu código não está correto\nConfira seu envio."
+
+def test_2_1():
+  test_2(8, 2, 2)
+
+def test_2_2():
+  test_2(49, 6, 43)
+
+def test_2_3():
+  test_2(128, 64, 0)
