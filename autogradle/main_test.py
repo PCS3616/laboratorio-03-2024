@@ -8,7 +8,6 @@ submission_path = Path("./submission")
 def limpa(string):
     res=string.split(" ")
     res=list(filter(None, res))
-    print(res)
     return int(res[1]+res[2],16)
 
 def run_mvn(input_text):
@@ -82,7 +81,7 @@ def test_2(x: int = 0, y: int = 0, w: int = 0):
         "",
     ]
 
-    print(run_mvn('\n'.join(inputs)))
+    run_mvn('\n'.join(inputs))
 
     z = limpa(output_file.read())
 
@@ -101,5 +100,3 @@ def test_2_2():
 
 def test_2_3():
   test_2(128, 64, 0)
-
-test_2_2()
