@@ -288,6 +288,10 @@ caso W seja zero o programa da MVN irá terminar antecipadamente, pois ocorrerá
 Dessa forma, o seu código deve tratar esse caso, impedindo que a divisão ocorra e armazenando o valor
 1 em Z.
 
+# Observação:
+Caso não seja dito explicitamente o contrário, o endereço inicial de todos os programas deve ser
+0x000. Sendo que, nesse laboratório ambos os exercícios têm como endereço inicial 0x000.
+
 # Dica:
 
 Informação importante sobre a matéria da disciplina:
